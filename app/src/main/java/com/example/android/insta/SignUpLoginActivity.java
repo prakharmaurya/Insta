@@ -42,6 +42,8 @@ public class SignUpLoginActivity extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             Toast.makeText(getApplicationContext(), "SignedUp", Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(SignUpLoginActivity.this, WelcomeActivity.class);
+                            startActivity(i);
                         } else {
                             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                         }

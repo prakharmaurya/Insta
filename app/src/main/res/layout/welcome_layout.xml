@@ -6,8 +6,8 @@
 
     <TextView
         android:id="@+id/welcome"
-        android:layout_width="303dp"
-        android:layout_height="101dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
         android:layout_marginTop="91dp"
         android:layout_marginEnd="51dp"
@@ -17,4 +17,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/logOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="162dp"
+        android:text="Log Out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome" />
 </androidx.constraintlayout.widget.ConstraintLayout>
