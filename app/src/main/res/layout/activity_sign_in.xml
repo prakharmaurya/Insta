@@ -9,7 +9,7 @@
     tools:context=".SignUp">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/logo0"
         android:layout_width="146dp"
         android:layout_height="109dp"
         android:layout_marginTop="20dp"
@@ -19,21 +19,7 @@
         app:srcCompat="@drawable/insta" />
 
     <EditText
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="50dp"
-        android:ems="10"
-        android:hint="Enter your email..."
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
-
-    <EditText
-        android:id="@+id/password"
+        android:id="@+id/logPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -44,10 +30,10 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        app:layout_constraintTop_toBottomOf="@+id/loguserName" />
 
     <EditText
-        android:id="@+id/userName"
+        android:id="@+id/loguserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -58,35 +44,35 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/logo0" />
 
     <Button
-        android:id="@+id/signUp"
+        android:id="@+id/logSignUp"
         android:layout_width="350dp"
         android:layout_height="45dp"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="150dp"
         android:background="@android:color/holo_blue_dark"
         android:text="SIGN UP"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/logSignIn" />
 
     <Button
-        android:id="@+id/signIn"
+        android:id="@+id/logSignIn"
         android:layout_width="350dp"
         android:layout_height="45dp"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="150dp"
         android:background="@android:color/holo_orange_light"
         android:text="SIGN IN"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUp" />
+        app:layout_constraintTop_toBottomOf="@+id/logPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>
