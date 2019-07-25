@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UsersTab extends Fragment implements AdapterView.OnItemClickListener {
+public class UsersTab extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     ListView listView;
 
@@ -67,6 +68,8 @@ public class UsersTab extends Fragment implements AdapterView.OnItemClickListene
             }
         });
 
+        listView.setOnItemLongClickListener(this);
+
         return view;
     }
 
@@ -75,5 +78,20 @@ public class UsersTab extends Fragment implements AdapterView.OnItemClickListene
         Intent i = new Intent(getContext(), UsersPost.class);
         i.putExtra("username", arrayList.get(position));
         startActivity(i);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
+        parseQuery.whereEqualTo("username", arrayList.get(position));
+        parseQuery.getFirstInBackground(new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser object, ParseException e) {
+                if (object != null && e == null) {
+                    //Toast.makeText(getContext(),"Info",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        return true;
     }
 }
