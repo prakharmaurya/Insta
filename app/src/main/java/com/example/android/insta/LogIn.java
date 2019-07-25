@@ -46,9 +46,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         });
 
         if (ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().logOut();
-//            Intent i = new Intent(getApplicationContext(), SocialMediaActivity.class);
-//            startActivity(i);
+            //ParseUser.getCurrentUser().logOut();
+            Intent i = new Intent(getApplicationContext(), SocialMediaActivity.class);
+            startActivity(i);
         }
 
         signIn.setOnClickListener(LogIn.this);
