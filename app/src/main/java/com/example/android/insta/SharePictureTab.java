@@ -37,7 +37,7 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class SharePictureTab extends Fragment implements View.OnClickListener {
-    ImageView imageView;
+    public static ImageView imageView;
     Button sharePicBtn;
     EditText editText;
     Bitmap bitmap;
@@ -78,9 +78,9 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
                 byte[] bytes = byteArrayOutputStream.toByteArray();
 
                 ParseFile parseFile = new ParseFile("img.png", bytes);
-                ParseObject parseObject = new ParseObject("SharedPic");
+                ParseObject parseObject = new ParseObject("Photo");
                 parseObject.put("Picture", parseFile);
-                parseObject.put("Caption", editText.getText().toString());
+                parseObject.put("image_des", editText.getText().toString());
                 parseObject.put("username", ParseUser.getCurrentUser().getUsername());
                 sharePicBtn.setText("Please Wait...");
                 sharePicBtn.setAlpha(0.5f);

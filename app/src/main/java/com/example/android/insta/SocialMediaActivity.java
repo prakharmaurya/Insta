@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,13 +19,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
-import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class SocialMediaActivity extends AppCompatActivity {
     ViewPager viewPager;
@@ -92,25 +88,12 @@ public class SocialMediaActivity extends AppCompatActivity {
                 Uri capturedImage = data.getData();
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),
                         capturedImage);
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] bytes = byteArrayOutputStream.toByteArray();
-
-                ParseFile parseFile = new ParseFile("img.png", bytes);
-                ParseObject parseObject = new ParseObject("Photo");
-                parseObject.put("Picture", parseFile);
-                parseObject.put("username", ParseUser.getCurrentUser().getUsername());
-                parseObject.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            Toast.makeText(getApplicationContext(), "Pic Uploaded", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Failed " + e, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            } catch (Exception e) {
+                SharePictureTab.imageView.setImageBitmap(bitmap);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
