@@ -79,6 +79,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                     signUp.setText("SIGN IN");
                                     signUp.setAlpha(1f);
                                     signUp.setEnabled(true);
+                                    finish();
                                 }
                             });
                         } else {

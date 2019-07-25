@@ -80,6 +80,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                                     signIn.setText("SIGN IN");
                                     signIn.setAlpha(1f);
                                     signIn.setEnabled(true);
+                                    finish();
                                 }
                             });
                         } else {

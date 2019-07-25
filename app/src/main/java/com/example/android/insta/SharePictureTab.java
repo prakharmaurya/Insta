@@ -1,7 +1,6 @@
 package com.example.android.insta;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,12 +14,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -30,6 +40,7 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
     ImageView imageView;
     Button sharePicBtn;
     EditText editText;
+    Bitmap bitmap;
 
     public SharePictureTab() {
         // Required empty public constructor
@@ -60,35 +71,43 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
                 } else {
                     getChosenImage();
                 }
-
+                break;
             case R.id.btnSharePic:
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] bytes = byteArrayOutputStream.toByteArray();
 
+                ParseFile parseFile = new ParseFile("img.png", bytes);
+                ParseObject parseObject = new ParseObject("SharedPic");
+                parseObject.put("Picture", parseFile);
+                parseObject.put("Caption", editText.getText().toString());
+                parseObject.put("username", ParseUser.getCurrentUser().getUsername());
+                sharePicBtn.setText("Please Wait...");
+                sharePicBtn.setAlpha(0.5f);
+                sharePicBtn.setEnabled(false);
+                parseObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_LONG).show();
+                            sharePicBtn.setText("Share Picture");
+                            sharePicBtn.setAlpha(1f);
+                            sharePicBtn.setEnabled(true);
+                        } else {
+                            Toast.makeText(getContext(), "Failed " + e, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                break;
             default:
 
         }
     }
 
     private void getChosenImage() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, 2000);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
-            switch (requestCode) {
-                case 2000:
-                    Uri selectedImage = data.getData();
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        imageView.setImageBitmap(bitmap);
-                    } catch (IOException e) {
-                        Log.i("TAG", "Some exception " + e);
-                    }
-                    break;
-            }
+        Intent i = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, 4000);
     }
 
     @Override
@@ -97,6 +116,20 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
         if (requestCode == 1000) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getChosenImage();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 4000 && resultCode == RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                Log.i("TAG", "Some exception " + e);
             }
         }
     }
