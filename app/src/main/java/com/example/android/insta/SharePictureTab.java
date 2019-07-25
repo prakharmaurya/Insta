@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -74,7 +75,8 @@ public class SharePictureTab extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btnSharePic:
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                bm.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] bytes = byteArrayOutputStream.toByteArray();
 
                 ParseFile parseFile = new ParseFile("img.png", bytes);

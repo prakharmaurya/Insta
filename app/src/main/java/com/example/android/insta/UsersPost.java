@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -73,6 +74,9 @@ public class UsersPost extends AppCompatActivity {
                             }
                         });
                     }
+                } else {
+                    Toast.makeText(UsersPost.this, "No post so far", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             }
         });
