@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.parse.ParseUser;
 
 public class SocialMediaActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -24,7 +25,7 @@ public class SocialMediaActivity extends AppCompatActivity {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
-        setTitle("Social Media");
+        setTitle("Hi! " + ParseUser.getCurrentUser().getUsername());
 
         viewPager = findViewById(R.id.view_pager);
         tabAdapter = new TabAdapter(getSupportFragmentManager());
