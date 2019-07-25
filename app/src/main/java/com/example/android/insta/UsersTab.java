@@ -22,6 +22,9 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,13 +85,29 @@ public class UsersTab extends Fragment implements AdapterView.OnItemClickListene
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
+        final ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
         parseQuery.whereEqualTo("username", arrayList.get(position));
         parseQuery.getFirstInBackground(new GetCallback<ParseUser>() {
             @Override
             public void done(ParseUser object, ParseException e) {
                 if (object != null && e == null) {
                     //Toast.makeText(getContext(),"Info",Toast.LENGTH_LONG).show();
+                    final PrettyDialog prettyDialog = new PrettyDialog(getContext());
+                    prettyDialog.setTitle(object.getUsername() + "'s Info")
+                            .setMessage(object.get("Bio") + "\n"
+                                    + object.get("Profession") + "\n"
+                                    + object.get("Hobbie") + "\n"
+                                    + object.get("Sport"))
+                            .setIcon(R.drawable.ic_person_black_24dp)
+                            .addButton("OK",
+                                    R.color.pdlg_color_white,
+                                    R.color.pdlg_color_green,
+                                    new PrettyDialogCallback() {
+                                        @Override
+                                        public void onClick() {
+                                            prettyDialog.dismiss();
+                                        }
+                                    }).show();
                 }
             }
         });

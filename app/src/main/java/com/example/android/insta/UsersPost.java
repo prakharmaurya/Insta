@@ -58,12 +58,13 @@ public class UsersPost extends AppCompatActivity {
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                     params.setMargins(8, 8, 8, 8);
                                     postImageView.setLayoutParams(params);
-                                    postImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                    postImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                                     postImageView.setImageBitmap(bitmap);
 
                                     LinearLayout.LayoutParams params_post = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                     params_post.setMargins(8, 8, 8, 8);
                                     imgDesc.setLayoutParams(params_post);
+                                    imgDesc.setTextSize(30);
                                     imgDesc.setGravity(Gravity.CENTER);
                                     imgDesc.setBackgroundColor(Color.BLUE);
                                     imgDesc.setTextColor(Color.WHITE);
